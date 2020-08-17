@@ -1,0 +1,15 @@
+export default {
+    primary200: "#ffeab1",
+    primary300: "#ffdc7e",
+    primary400: "#ffd04a",
+    primary500: "#ffc41f",
+    primary600: "#ffac00",
+    primary700: "#ff9900",
+    primary800: "#ff8700",
+    primary: "#ff6400",
+    secondary: "#ff7043",
+    primaryLight: "#ff983f",
+    primaryDark: "#c43300",
+    background: "#00001d",
+    surface: "#162137",
+};

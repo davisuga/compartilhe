@@ -1,0 +1,12 @@
+{
+    "headers": {
+        "accept": "*/*",
+        "accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+        "content-type": "application/json",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "x-parse-application-id": "47RAnYvxm7rWLUTUZYHt9SItJjd9FnmWj5ZK5g92",
+        "x-parse-client-key": "WLyCpihyllj8cxhhuVZk9b15JkbMeSt5q2IURgAW",
+        "x-parse-master-key": "32qb1Of9n8jESGsr3TESg9RUAxJTrZbpGVVKIk3v"
+    }
+}

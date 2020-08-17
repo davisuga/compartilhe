@@ -1,0 +1,16 @@
+export default {
+  primary200: "#ffeab1",
+  primary300: "#ffdc7e",
+  primary400: "#ffd04a",
+  primary500: "#ffc41f",
+  primary600: "#ffac00",
+  primary700: "#ff9900",
+  primary800: "#ff8700",
+  primary: "#21B685",
+  secondary: "#C9D143",
+  primaryLight: "#63e9b5",
+  primaryDark: "#008558",
+  background: "#fff",
+  surface: "#fffs",
+  fontColor: "#252525",
+};
