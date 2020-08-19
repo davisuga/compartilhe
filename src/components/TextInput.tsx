@@ -23,11 +23,12 @@ export default function components({
       <Text style={styles.helperText}>{helperText}</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          mode="outlined"
+          mode="flat"
           placeholderTextColor="#ffffff"
           style={styles.input}
           placeholder={helperText}
           value={value}
+          accessibilityStates
           onChangeText={(typedText) => onChangeText(typedText)}
         />
       </View>
@@ -38,15 +39,16 @@ const styles = StyleSheet.create({
   input: {
     color: theme.primary,
     fontSize: RFPercentage(2.5),
+    borderColor: "#fff",
+    backgroundColor: "#0000",
   },
 
   inputContainer: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: 1,
+    borderColor: "#fff",
+    borderWidth: 2,
     borderRadius: 5,
   },
   helperText: {
     fontWeight: "bold",
-    color: theme.primary,
   },
 });

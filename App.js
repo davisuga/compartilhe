@@ -5,7 +5,6 @@ import Reactotron, {
   trackGlobalErrors,
   asyncStorage,
 } from "reactotron-react-native";
-
 Reactotron.configure({ host: "192.168.15.25" })
   .useReactNative()
   .use(asyncStorage())
@@ -13,4 +12,5 @@ Reactotron.configure({ host: "192.168.15.25" })
   .use(openInEditor())
   .use(trackGlobalErrors())
   .connect();
+
 export default App;

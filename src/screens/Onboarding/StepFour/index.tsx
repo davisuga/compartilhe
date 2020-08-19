@@ -1,25 +1,41 @@
-import Onboarder from "components/Onboarder.tsx";
-// Set the key-value pairs for the different languages you want to support.
 import React from "react";
-const StepTwo: React.FC = ({ navigation }) => {
-    const translations = {
-        "pt-BR": {
-            mainText: "... ou na sua distância até a oferta!",
-            next: "AVANÇAR",
-        },
+import { View, Image, Text } from "react-native";
+import { TouchableRipple, FAB } from "react-native-paper";
+import * as Localization from "expo-localization";
+import i18n from "i18n-js";
+import style from "../style";
+import { useSafeArea } from "react-native-safe-area-context";
+// Set the key-value pairs for the different languages you want to support.
+i18n.translations = {
+  "pt-BR": { searchOffers: "Pesquise ofertas", next: "avançar" },
 
-        en: { mainText: "View an interactive map with offers!", next: "NEXT" },
-    };
+  en: { searchOffers: "Search offers", next: "NEXT" },
+};
+// Set the locale once at the beginning of your app.
+i18n.locale = Localization.locale;
+i18n.fallbacks = true;
 
-    return (
-        <Onboarder
-            navigation={navigation}
-            imageSource={require("../../../assets/images/SliderMenu4x.png")}
-            icon={"radar"}
-            nextScreen="OnboardingFive"
-            translations={translations}
-        />
-    );
+const StepOne: React.FC = ({ navigation }) => {
+  const { top } = useSafeArea();
+  return (
+    <View
+      style={[style.container, { paddingTop: top, justifyContent: "flex-end" }]}
+    >
+      <TouchableRipple
+        style={style.nextButton}
+        onPress={() => {
+          navigation.navigate("OnboardingFive");
+        }}
+      >
+        <Text style={style.nextText}>{i18n.t("next")}</Text>
+      </TouchableRipple>
+      <Image
+        resizeMode="cover"
+        style={style.image}
+        source={require("../../../assets/images/Onboarding4.png")}
+      />
+    </View>
+  );
 };
 
-export default StepTwo;
+export default StepOne;

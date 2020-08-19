@@ -11,7 +11,8 @@ export const getCardStyle = (height: any) => {
       alignSelf: "center",
       bottom: wp(2),
       zIndex: 100,
-      elevation: 15,
+
+      borderRadius: 150,
     },
   });
   return cardStyle;
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: theme.primary,
     backgroundColor: theme.background,
+    borderRadius: 150,
   },
   card: {
     color: "#fff",
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     bottom: wp(2),
     zIndex: 100,
-    elevation: 15,
   },
   baseFab: {
     backgroundColor: theme.primary,

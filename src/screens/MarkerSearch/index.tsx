@@ -15,6 +15,8 @@ import { axheaders } from "../../../creds.js";
 import "react-native-console-time-polyfill";
 import { IState, IMarker } from "../../store/index";
 import { styles } from "./styles";
+import { LinearGradient } from "expo-linear-gradient";
+
 export default function MarkerSearch({ navigation }) {
   const { top } = useSafeArea();
 
@@ -93,10 +95,11 @@ export default function MarkerSearch({ navigation }) {
   }, []);
 
   return (
-    <View
+    <LinearGradient
+      colors={["#21B685", "#C9D143"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background,
+
         width: wp("100%"),
         paddingTop: top,
       }}
@@ -108,20 +111,10 @@ export default function MarkerSearch({ navigation }) {
           navigation.navigate("MapScreen");
         }}
       />
-      <Image
-        source={require("../../assets/images/LeftGradient.png")}
-        //resizeMode="contain"
-        resizeMethod="auto"
-        style={{
-          height: hp("100%") + top,
-          width: wp("2%"),
-          alignSelf: "flex-start",
-          position: "absolute",
-        }}
-      />
+
       <View
         style={{
-          backgroundColor: theme.background,
+          backgroundColor: "#0000",
           width: wp("98%"),
           alignSelf: "flex-end",
         }}
@@ -134,18 +127,17 @@ export default function MarkerSearch({ navigation }) {
           onChangeText={async (query) => {
             setKeyword(query);
           }}
-          placeholderTextColor={"#fff"}
           onSubmitEditing={async () => {
             getMarkersAndFilter();
           }}
           value={keyword}
-          iconColor={"#fff"}
+          iconColor={theme.primary}
           style={{
-            width: wp("94%"),
+            width: wp("90%"),
             alignSelf: "center",
             backgroundColor: theme.surface,
           }}
-          inputStyle={{ color: theme.fontColor }}
+          inputStyle={{ color: theme.primary }}
         />
       </View>
       <ScrollView
@@ -176,7 +168,7 @@ export default function MarkerSearch({ navigation }) {
               <Text
                 style={{
                   fontSize: RFPercentage(3),
-                  color: "#fff",
+                  color: theme.primary,
                   fontWeight: "700",
                 }}
               >
@@ -185,7 +177,7 @@ export default function MarkerSearch({ navigation }) {
               <Text
                 style={{
                   fontSize: RFPercentage(2),
-                  color: "#fff",
+                  color: theme.primary,
                   marginTop: hp(".5%"),
                 }}
               >
@@ -194,7 +186,7 @@ export default function MarkerSearch({ navigation }) {
               <Text
                 style={{
                   fontSize: RFPercentage(1.5),
-                  color: "#aaa",
+                  color: theme.primary,
                   marginTop: hp("2%"),
                   marginBottom: hp("2%"),
                 }}
@@ -205,6 +197,6 @@ export default function MarkerSearch({ navigation }) {
           </Card>
         ))}
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }

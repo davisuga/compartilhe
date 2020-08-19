@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ActivityIndicator, Alert } from "react-native";
-
+import { LinearGradient } from "expo-linear-gradient";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { useSafeArea } from "react-native-safe-area-context";
 import { TextInput, Button, Title } from "react-native-paper";
@@ -11,6 +11,7 @@ import client from "../../services/client";
 import { useSelector } from "react-redux";
 import { IState, ITheme } from "~/store";
 import { hp, wp } from "~/utils/screen-size";
+import { color } from "react-native-reanimated";
 
 export default function RefugeeLogin({ navigation }) {
   const insets = useSafeArea();
@@ -23,12 +24,14 @@ export default function RefugeeLogin({ navigation }) {
     button: {
       marginHorizontal: wp(7),
       marginVertical: hp(2),
-      backgroundColor: colors.primary,
+      backgroundColor: colors.background,
+      color: colors.primary,
     },
     email: {
-      marginTop: hp(0),
+      marginTop: hp(1),
       marginHorizontal: wp(0),
       backgroundColor: colors.background,
+      color: colors.primary,
     },
     emailContainer: {
       borderBottomColor: colors.primary,
@@ -50,7 +53,7 @@ export default function RefugeeLogin({ navigation }) {
       lineHeight: RFPercentage(3),
       marginLeft: wp(7),
       marginRight: wp(7),
-      color: "#e0e0e0",
+      color: "#fff",
       textAlign: "left",
       marginTop: hp(1),
     },
@@ -189,29 +192,33 @@ export default function RefugeeLogin({ navigation }) {
 
   if (isLoading) {
     return (
-      <View
+      <LinearGradient
+        colors={[colors.primary, colors.secondary]}
         style={{
           flex: 1,
           padding: 20,
-          backgroundColor: colors.background,
         }}
       >
         <ActivityIndicator
           style={{ flex: 1, width: 500, alignSelf: "center" }}
         />
-      </View>
+      </LinearGradient>
     );
   }
   return (
-    <View style={styles.container}>
-      <Title style={styles.title}>Bienvenido!</Title>
-      <Title style={styles.subtitle}>Insira su correo electrónico</Title>
+    <LinearGradient
+      colors={[colors.primary, colors.secondary]}
+      style={styles.container}
+    >
+      <Title style={styles.title}>Bem Vindo!</Title>
+      <Title style={styles.subtitle}>Digite seu email</Title>
 
       <View style={styles.bottomView}>
         <View style={styles.emailContainer}>
           <TextInput
-            mode="outlined"
+            mode="flat"
             autoFocus
+            accessibilityStates
             style={styles.email}
             label="Email"
             keyboardType="email-address"
@@ -226,8 +233,8 @@ export default function RefugeeLogin({ navigation }) {
                 login(navigation);
               } else {
                 Alert.alert(
-                  "Error!",
-                  "Por favor introduzca una dirección de correo electrónico válida",
+                  "Erro!",
+                  "Insira um email válido!",
                   [{ text: "OK" }],
                   { cancelable: false }
                 );
@@ -239,7 +246,7 @@ export default function RefugeeLogin({ navigation }) {
         <Button
           dark={true}
           mode="outlined"
-          color="white"
+          color={colors.primary}
           style={styles.button}
           onPress={() => {
             if (email != "") {
@@ -257,6 +264,6 @@ export default function RefugeeLogin({ navigation }) {
           Enviar
         </Button>
       </View>
-    </View>
+    </LinearGradient>
   );
 }

@@ -7,6 +7,7 @@ import MapStyle from "../../components/MapStyle";
 import MapView from "react-native-maps";
 import { fetchData } from "../../storage";
 import "react-native-console-time-polyfill";
+import { LinearGradient } from "expo-linear-gradient";
 import styles from "./styles";
 import {
   IState,
@@ -47,6 +48,7 @@ import { storeData } from "../../storage";
 import DrawerHeader from "../../components/DrawerHeader";
 import FilterButton from "../../components/FilterButton";
 import { hp, wp } from "~/utils/screen-size.ts";
+import themes from "~/styles";
 
 export default function MapScreen({ navigation }: any) {
   const [connectionStatus, setConnectionStatus] = useState(true);
@@ -56,7 +58,7 @@ export default function MapScreen({ navigation }: any) {
   const [sliderState, setSliderState] = useState(100);
   const [isFirstBoot, setIsFirstBoot] = useState(true);
   const [isOptionsModalOn, setIsOptionsModalOn] = useState(false);
-  const colors = useSelector<IState, any>((state) => state.theme);
+  const theme = useSelector<IState, any>((state) => state.theme);
   const dispatch = useDispatch();
   const filterTabActive = useSelector<IState, boolean>(
     (state) => state.filterTabActive
@@ -79,7 +81,7 @@ export default function MapScreen({ navigation }: any) {
     (state) => state.markerSelected.distance
   );
 
-  const [filterTabAnimNum] = useState(new Animated.Value(1000));
+  const [filterTabAnimNum] = useState(new Animated.Value(700));
   const [markerCardAnimNum] = useState(new Animated.Value(0));
   const isInitialRegion = useSelector<IState, boolean>(
     (state) => state.isInitialRegion
@@ -103,8 +105,9 @@ export default function MapScreen({ navigation }: any) {
 
   function markerCardShowAnimFunc() {
     Animated.timing(markerCardAnimNum, {
-      toValue: 1000,
+      toValue: 700,
       duration: 300,
+      useNativeDriver: false,
     }).start();
     //console.log('abriu');
   }
@@ -113,13 +116,15 @@ export default function MapScreen({ navigation }: any) {
     Animated.timing(markerCardAnimNum, {
       toValue: 0,
       duration: 300,
+      useNativeDriver: false,
     }).start();
     //console.log('fecho');
   }
 
   function filterTabShowAnimFunc() {
     Animated.spring(filterTabAnimNum, {
-      toValue: 1000,
+      toValue: 700,
+      useNativeDriver: false,
     }).start();
     console.log("abriu");
   }
@@ -127,6 +132,7 @@ export default function MapScreen({ navigation }: any) {
   function filterTabHideAnimFunc() {
     Animated.spring(filterTabAnimNum, {
       toValue: 0,
+      useNativeDriver: false,
     }).start();
     console.log("fecho");
   }
@@ -236,17 +242,17 @@ export default function MapScreen({ navigation }: any) {
   const insets = useSafeArea();
 
   const markerCardTabAnimPerc = markerCardAnimNum.interpolate({
-    inputRange: [0, 1000],
+    inputRange: [0, 700],
     outputRange: [hp(0), hp(20)],
   });
 
   const filterTabAnimPerc = filterTabAnimNum.interpolate({
-    inputRange: [0, 1000],
+    inputRange: [0, 700],
     outputRange: [hp(0), hp(37) + insets.top],
   });
 
   const MapAnimPerc = filterTabAnimNum.interpolate({
-    inputRange: [0, 1000],
+    inputRange: [0, 700],
     outputRange: [
       Dimensions.get("window").height,
       hp(63) - (hp(100) - Dimensions.get("window").height) - insets.top,
@@ -325,7 +331,7 @@ export default function MapScreen({ navigation }: any) {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "#000", paddingTop: insets.top }}>
+    <View style={{ backgroundColor: "#E8E8E8", paddingTop: insets.top }}>
       <View
         style={{
           alignSelf: "flex-start",
@@ -337,7 +343,7 @@ export default function MapScreen({ navigation }: any) {
       >
         <FAB
           style={{
-            backgroundColor: colors.primary,
+            backgroundColor: theme.primary,
           }}
           small
           icon="menu"
@@ -345,22 +351,23 @@ export default function MapScreen({ navigation }: any) {
           color="#fff"
         />
       </View>
-      <Modal transparent={true} visible={isOptionsModalOn}>
-        <TouchableOpacity
-          activeOpacity={1}
+      <Portal>
+        <Dialog
+          visible={isOptionsModalOn}
           style={{
-            backgroundColor: colors.background + "bb",
             flex: 1,
+            backgroundColor: "transparent",
+            marginVertical: hp(13),
+            marginHorizontal: wp(3),
           }}
-          onPress={() => setIsOptionsModalOn(false)}
+          onDismiss={() => setIsOptionsModalOn(false)}
         >
-          <TouchableOpacity
-            activeOpacity={1}
+          <LinearGradient
+            colors={["#21df85", "#21B685"]}
             style={{
-              backgroundColor: colors.background,
+              backgroundColor: theme.background,
               flex: 1,
-              marginVertical: hp(13),
-              marginHorizontal: wp(3),
+
               borderRadius: 10,
               zIndex: 999,
               justifyContent: "space-evenly",
@@ -389,7 +396,7 @@ export default function MapScreen({ navigation }: any) {
               }}
             >
               <Icon
-                color={colors.primary}
+                color={theme.primary}
                 style={{ margin: 10 }}
                 name="newspaper"
               ></Icon>
@@ -412,7 +419,7 @@ export default function MapScreen({ navigation }: any) {
               }}
             >
               <Icon
-                color={colors.primary}
+                color={theme.primary}
                 style={{ margin: 10 }}
                 name="share"
               ></Icon>
@@ -433,7 +440,7 @@ export default function MapScreen({ navigation }: any) {
               }}
             >
               <Icon
-                color={colors.primary}
+                color={theme.primary}
                 style={{ margin: 10 }}
                 name="phone"
               ></Icon>
@@ -452,15 +459,15 @@ export default function MapScreen({ navigation }: any) {
               onPress={() => setIsOptionsModalOn(false)}
             >
               <Icon
-                color={colors.primary}
+                color={theme.primary}
                 style={{ margin: 10 }}
                 name="keyboard-backspace"
               ></Icon>
               <Text style={styles.buttonText}> Voltar </Text>
             </Button>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </Modal>
+          </LinearGradient>
+        </Dialog>
+      </Portal>
       <FAB
         style={[styles.distanceFab, { marginTop: insets.top + hp(1.5) + 45 }]}
         small
@@ -471,39 +478,51 @@ export default function MapScreen({ navigation }: any) {
       <Animated.View style={{ height: MapAnimPerc }}>
         <Portal>
           <Dialog
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: "#0000", borderRadius: 12 }}
             visible={radiusDialogVisibility}
             onDismiss={() => setRadiusDialogVisibility(false)}
           >
-            <Dialog.Title>
-              Ingrese una distancia para buscar ofertas
-            </Dialog.Title>
-            <Dialog.Content>
-              <Slider
-                value={sliderState}
-                step={10}
-                thumbTintColor={colors.primary}
-                minimumTrackTintColor={colors.primary}
-                style={{ backgroundColor: colors.background }}
-                onSlidingComplete={async (value) => {
-                  setSliderState(value);
-                  storeData("searchDistanceRadius", value.toString());
-                }}
-                onValueChange={(value) => {
-                  setSearchDistanceRadius(value);
-                }}
-                maximumValue={10000}
-              ></Slider>
+            <LinearGradient
+              start={[0, 0]}
+              end={[1, 1]}
+              style={{ borderRadius: 15 }}
+              colors={["#21df85", "#21B685"]}
+            >
+              <Dialog.Title>
+                <Text style={{ color: "white" }}>
+                  Ingrese una distancia para buscar ofertas
+                </Text>
+              </Dialog.Title>
+              <Dialog.Content>
+                <Slider
+                  value={sliderState}
+                  step={10}
+                  thumbTintColor={theme.background}
+                  minimumTrackTintColor={theme.background}
+                  style={{ backgroundColor: "#0000" }}
+                  onSlidingComplete={async (value) => {
+                    setSliderState(value);
+                    storeData("searchDistanceRadius", value.toString());
+                  }}
+                  onValueChange={(value) => {
+                    setSearchDistanceRadius(value);
+                  }}
+                  maximumValue={10000}
+                ></Slider>
 
-              <Text style={{ color: "#fff" }}>
-                {searchDistanceRadius} Kilómetros
-              </Text>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={() => setRadiusDialogVisibility(false)}>
-                LISTO
-              </Button>
-            </Dialog.Actions>
+                <Text style={{ color: "#fff" }}>
+                  {searchDistanceRadius} Kilómetros
+                </Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  accessibilityStates
+                  onPress={() => setRadiusDialogVisibility(false)}
+                >
+                  <Text style={{ color: "#fff" }}>PRONTO</Text>
+                </Button>
+              </Dialog.Actions>
+            </LinearGradient>
           </Dialog>
         </Portal>
         {isInitialRegion ? (
@@ -519,6 +538,7 @@ export default function MapScreen({ navigation }: any) {
           <>
             {!filterTabLoading ? (
               <FAB
+                accessibilityStates
                 color="white"
                 style={styles.searchFab}
                 icon="magnify"
@@ -643,74 +663,73 @@ export default function MapScreen({ navigation }: any) {
           height: filterTabAnimPerc,
           justifyContent: "flex-start",
           alignItems: "center",
-          backgroundColor: colors.background,
+          backgroundColor: "#   E8E8E8",
         }}
       >
-        <View
+        <ScrollView
           style={{
-            flexDirection: "column",
-            width: wp(90),
-            height: hp(30),
-            justifyContent: "space-between",
+            backgroundColor: theme.primary,
+            width: wp(100),
+            padding: 10,
+            borderTopRightRadius: 22,
+            borderTopLeftRadius: 22,
           }}
         >
-          <ScrollView>
-            <FilterButton
-              filter={{
-                Filter: "food",
-                OfferName: "ALIMENTACIÓN",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "documentation",
-                OfferName: "DOCUMENTACION",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "education",
-                OfferName: "EDUCACION",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "shelter",
-                OfferName: "REFUGIO",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "health",
-                OfferName: "SALUD",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "clothes",
-                OfferName: "ROPA",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "job",
-                OfferName: "EMPLEO",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "acessibility",
-                OfferName: "ACCESIBILIDAD",
-              }}
-            />
-            <FilterButton
-              filter={{
-                Filter: "nursery",
-                OfferName: "GUARDERÍA",
-              }}
-            />
-          </ScrollView>
-        </View>
+          <FilterButton
+            filter={{
+              Filter: "food",
+              OfferName: "ALIMENTAÇÃO",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "documentation",
+              OfferName: "DOCUMENTAÇÃO",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "education",
+              OfferName: "EDUCAÇÃO",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "shelter",
+              OfferName: "REFÚGIO",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "health",
+              OfferName: "SAÚDE",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "clothes",
+              OfferName: "ROUPA",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "job",
+              OfferName: "EMPREGO",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "acessibility",
+              OfferName: "ACCESIBILIDADE",
+            }}
+          />
+          <FilterButton
+            filter={{
+              Filter: "nursery",
+              OfferName: "BERÇÁRIO",
+            }}
+          />
+        </ScrollView>
       </Animated.View>
       <Card
         style={[

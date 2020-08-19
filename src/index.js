@@ -7,8 +7,14 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import startNotifier from "./services/refresher";
 import store from "~/store";
+import * as Font from "expo-font";
+
 const { theme } = store.getState();
 startNotifier();
+
+Font.loadAsync({
+  "axiforma-bold": require("~/assets/fonts/axiforma-bold.otf"),
+}).then();
 const appTheme = {
   ...DefaultTheme,
   dark: true,
@@ -18,8 +24,8 @@ const appTheme = {
     ...DefaultTheme.colors,
     primary: theme.primary,
     accent: theme.primary,
-    background: "#00001d",
-    text: "#fff",
+    background: theme.background,
+    text: theme.primary,
   },
 };
 

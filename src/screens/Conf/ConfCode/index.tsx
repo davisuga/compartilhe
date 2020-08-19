@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, Text, TextInput, Dimensions } from "react-native";
+import { StyleSheet, Image, Text, Dimensions } from "react-native";
 import ButtonConfCode from "../../../components/ButtonConfCode";
 import ButtonConfNotSend from "../../../components/ButtonConfNotSend";
 
 import { SafeAreaView } from "react-native";
 import { fetchData, storeData, unstring } from "../../../storage";
-import { Button } from "react-native-paper";
-
+import { Button, TextInput } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
 import { hp, wp } from "~/utils/screen-size";
 import store from "~/store";
 const { theme } = store.getState();
@@ -36,9 +36,12 @@ export default ({ navigation }) => {
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <LinearGradient
+      colors={[theme.primary, theme.secondary]}
+      style={styles.container}
+    >
       <Image
-        source={require("../../../assets/images/compartilhe.png")}
+        source={require("../../../assets/images/logo_white.png")}
         resizeMode="contain"
         style={styles.LogoSavi}
       />
@@ -60,7 +63,7 @@ export default ({ navigation }) => {
       >
         Confirmar
       </Button>
-    </SafeAreaView>
+    </LinearGradient>
   );
 };
 

@@ -2,29 +2,37 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-native-paper";
-import { IState, IFilters } from "../store";
+import { IState, IFilters, ITheme } from "../store";
 import { hp, wp } from "~/utils/screen-size";
 export default function components(filter) {
   const dispatch = useDispatch();
-  const colors = useSelector<IState, any>((state) => state.theme);
+  const colors = useSelector<IState, ITheme>((state) => state.theme);
   const styles = StyleSheet.create({
     filterButton: {
+      height: hp(7),
+      justifyContent: "center",
+
+      marginTop: hp(2),
+      borderWidth: 1.5,
+      borderColor: colors.background,
+      backgroundColor: colors.primary,
+      borderRadius: 50,
+    },
+    filterButtonText: {
+      color: colors.background,
+    },
+    filterButtonActive: {
+      height: hp(7),
+      justifyContent: "center",
+
       marginTop: hp(2),
       borderWidth: 1.5,
       borderColor: colors.primary,
       backgroundColor: colors.background,
-    },
-    filterButtonText: {
-      color: colors.primary,
-    },
-    filterButtonActive: {
-      marginTop: hp(2),
-      borderWidth: 1.5,
-      borderColor: colors.primary,
-      backgroundColor: colors.primary,
+      borderRadius: 50,
     },
     filterButtonTextActive: {
-      color: colors.background,
+      color: colors.primary,
     },
   });
 

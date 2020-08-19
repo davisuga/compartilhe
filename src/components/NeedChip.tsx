@@ -10,8 +10,8 @@ export default function components(filter: IFilters) {
   const colors = useSelector<IState, any>((state) => state.theme);
   const styles = StyleSheet.create({
     chip: {
-      backgroundColor: "#f60",
-      borderColor: "#f60",
+      backgroundColor: colors.primary,
+      borderColor: colors.primary,
       margin: 3,
     },
     chipText: {
@@ -22,11 +22,13 @@ export default function components(filter: IFilters) {
       borderWidth: 1.5,
       borderColor: colors.primary,
       backgroundColor: colors.background,
+      margin: 3,
     },
     filterButtonText: {
       color: colors.primary,
     },
     filterButtonActive: {
+      margin: 3,
       marginTop: hp(2),
       borderWidth: 1.5,
       borderColor: colors.primary,
@@ -50,11 +52,20 @@ export default function components(filter: IFilters) {
       onPress={() => {
         changeActiveFilter(filter.filter.Filter);
       }}
-      selected={filterState}
       mode="outlined"
-      style={styles.chip}
+      style={
+        filterState == true ? styles.filterButtonActive : styles.filterButton
+      }
     >
-      <Text style={styles.chipText}>{filter.filter.OfferName}</Text>
+      <Text
+        style={
+          filterState == true
+            ? styles.filterButtonTextActive
+            : styles.filterButtonText
+        }
+      >
+        {filter.filter.OfferName}
+      </Text>
     </Chip>
   );
 }

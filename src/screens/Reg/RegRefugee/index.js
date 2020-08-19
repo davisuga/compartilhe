@@ -382,7 +382,7 @@ export default class index extends Component {
     this.state.scrollRef = React.createRef();
     let text;
     let error = this.state.nullForms;
-    text = "Registrar el membro de la familia.";
+    text = "Cadastre o membro da família";
     const { fadeAnim, isMonthSelectorVisible, selectedMonth } = this.state;
     function hideAnimFunc() {
       Animated.spring(fadeAnim, {
@@ -474,15 +474,14 @@ export default class index extends Component {
         >
           <Image
             resizeMethod="auto"
-            source={require("../../../assets/images/icon.png")}
+            source={require("../../../assets/images/logo_white.png")}
             resizeMode="contain"
             style={styles.LogoSavi}
           />
           <Text style={styles.RegFamilyTitle}>Registrar Familia</Text>
           <Text style={styles.RegFamilyText}>
-            Todos los miembros de la familia deben estar en el mismo lugar, si
-            están en diferentes lugares deben registrarse en diferentes
-            teléfonos.
+            Todos os membros da família devem estar no mesmo local, se estiverem
+            em locais diferentes devem se registrar em telefones diferentes.
           </Text>
         </Animated.View>
         <Animated.ScrollView
@@ -555,14 +554,14 @@ export default class index extends Component {
                   {this.state.error}
                 </Text>
                 <TextInput
-                  helperText="Primer nombre"
+                  helperText="Primeiro nombre"
                   mode="outlined"
                   onChangeText={(name) => this.setState({ name: name })}
                   value={this.state.name}
                 />
                 <TextInput
                   style={styles.LastnameInput}
-                  helperText="Apellido - opcional"
+                  helperText="Sobrenome - opcional"
                   mode="outlined"
                   onChangeText={(lastName) =>
                     this.setState({

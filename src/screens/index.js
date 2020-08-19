@@ -2,6 +2,8 @@
 import ConfNumber from "./Conf/ConfNumber";
 import ConfCode from "./Conf/ConfCode";
 import OnboardingOne from "./Onboarding/StepOne";
+import OnboardingZero from "./Onboarding/StepZero";
+
 import OnboardingTwo from "./Onboarding/StepTwo";
 import OnboardingThree from "./Onboarding/StepThree";
 import OnboardingFour from "./Onboarding/StepFour";
@@ -31,6 +33,13 @@ import RefugeeLogin from "./RefugeeLogin";
 import ContactUs from "./ContactUs";
 
 const Stack = createStackNavigator({
+  OnboardingZero: {
+    screen: OnboardingZero,
+    navigationOptions: {
+      title: "OnboardingZero",
+      header: null,
+    },
+  },
   OnboardingOne: {
     screen: OnboardingOne,
     navigationOptions: {

@@ -11,6 +11,6 @@ export default {
   primaryLight: "#63e9b5",
   primaryDark: "#008558",
   background: "#fff",
-  surface: "#fffs",
-  fontColor: "#252525",
+  surface: "#fff",
+  fontColor: "#fff",
 };

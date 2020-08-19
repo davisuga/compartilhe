@@ -2,7 +2,13 @@ import { StyleSheet } from "react-native";
 import store from "~/store";
 const { theme } = store.getState();
 import { hp, wp } from "~/utils/screen-size";
-
+import * as Font from "expo-font";
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "axiforma-bold": require("~/assets/fonts/axiforma-bold.otf"),
+  });
+};
+fetchFonts();
 export default StyleSheet.create({
   container: {
     backgroundColor: theme.background,
@@ -11,7 +17,8 @@ export default StyleSheet.create({
   },
   image: {
     width: wp(100),
-    height: hp(60),
+    height: hp(95),
+    position: "absolute",
   },
   descriptionText: {
     fontSize: 32,
@@ -22,13 +29,22 @@ export default StyleSheet.create({
   icon: {
     alignSelf: "center",
   },
+
   nextButton: {
-    height: hp(14),
+    height: hp(7),
     justifyContent: "center",
+    marginBottom: hp(7),
+    marginHorizontal: hp(7),
+    backgroundColor: theme.background,
+    borderRadius: 50,
+    zIndex: 100,
+    alignItems: "center",
+    minWidth: wp(70),
   },
   nextText: {
-    fontSize: 36,
-    color: theme.fontColor,
-    fontWeight: "bold",
+    fontSize: 30,
+    color: theme.primary,
+    margin: 5,
+    fontFamily: "axiforma-bold",
   },
 });
