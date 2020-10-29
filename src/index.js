@@ -13,35 +13,35 @@ const { theme } = store.getState();
 startNotifier();
 
 Font.loadAsync({
-  "axiforma-bold": require("~/assets/fonts/axiforma-bold.otf"),
+    "axiforma-bold": require("~/assets/fonts/axiforma-bold.otf"),
 }).then();
 const appTheme = {
-  ...DefaultTheme,
-  dark: true,
-  mode: "adaptive",
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: theme.primary,
-    accent: theme.primary,
-    background: theme.background,
-    text: theme.primary,
-  },
+    ...DefaultTheme,
+    dark: true,
+    mode: "adaptive",
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: theme.primary,
+        accent: theme.primary,
+        background: theme.background,
+        text: theme.primary,
+    },
 };
 
 const App = () => (
-  <ReduxProvider store={store}>
-    <SafeAreaProvider>
-      <PaperProvider
-        theme={appTheme}
-        settings={{
-          icon: (props) => <MaterialCommunityIcons {...props} />,
-        }}
-      >
-        <Routes />
-      </PaperProvider>
-    </SafeAreaProvider>
-  </ReduxProvider>
+    <ReduxProvider store={store}>
+        <SafeAreaProvider>
+            <PaperProvider
+                theme={appTheme}
+                settings={{
+                    icon: (props) => <MaterialCommunityIcons {...props} />,
+                }}
+            >
+                <Routes />
+            </PaperProvider>
+        </SafeAreaProvider>
+    </ReduxProvider>
 );
 
 export default App;

@@ -7,35 +7,42 @@ import style from "../style";
 import { useSafeArea } from "react-native-safe-area-context";
 // Set the key-value pairs for the different languages you want to support.
 i18n.translations = {
-  "pt-BR": { searchOffers: "Pesquise ofertas", next: "avançar" },
+    "pt-BR": { searchOffers: "Pesquise ofertas", next: "avançar" },
 
-  en: { searchOffers: "Search offers", next: "NEXT" },
+    en: { searchOffers: "Search offers", next: "NEXT" },
 };
 // Set the locale once at the beginning of your app.
 i18n.locale = Localization.locale;
 i18n.fallbacks = true;
 
 const StepOne: React.FC = ({ navigation }) => {
-  const { top } = useSafeArea();
-  return (
-    <View
-      style={[style.container, { paddingTop: top, justifyContent: "flex-end" }]}
-    >
-      <TouchableRipple
-        style={style.nextButton}
-        onPress={() => {
-          navigation.navigate("RefugeeLogin");
-        }}
-      >
-        <Text style={style.nextText}>{i18n.t("next")}</Text>
-      </TouchableRipple>
-      <Image
-        resizeMode="cover"
-        style={style.image}
-        source={require("../../../assets/images/Onboarding5.png")}
-      />
-    </View>
-  );
+    const { top } = useSafeArea();
+    return (
+        <View
+            style={[
+                style.container,
+                {
+                    paddingTop: top,
+                    justifyContent: "space-between",
+                    flexDirection: "column-reverse",
+                },
+            ]}
+        >
+            <TouchableRipple
+                style={style.nextButton}
+                onPress={() => {
+                    navigation.navigate("RefugeeLogin");
+                }}
+            >
+                <Text style={style.nextText}>{i18n.t("next")}</Text>
+            </TouchableRipple>
+            <Image
+                resizeMode="cover"
+                style={style.image}
+                source={require("../../../assets/images/Onboarding5.png")}
+            />
+        </View>
+    );
 };
 
 export default StepOne;

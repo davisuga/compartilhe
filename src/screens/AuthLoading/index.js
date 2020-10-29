@@ -1,41 +1,33 @@
-import React, { useEffect, useCallback, useRef } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { fetchData, unstring } from "../../storage";
-
+import React, { useEffect } from "react";
+import {
+    ActivityIndicator,
+    AsyncStorage,
+    StatusBar,
+    StyleSheet,
+    View,
+} from "react-native";
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#00001d",
-    },
+    container: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
-export default ({ navigation }) => {
-    const componentIsMounted = useRef(true);
+export const AuthLoadingScreen = (props) => {
     useEffect(() => {
-        if (componentIsMounted) {
-            verifyLogin();
-        }
-        return () => {
-            componentIsMounted.current = false;
-        };
+        _bootstrapAsync();
     }, []);
-    const verifyLogin = useCallback(async () => {
-        let isLogged = await fetchData("logged");
-        let loginType = await fetchData("loginType");
-        loginType = unstring(loginType);
-        if (isLogged == "true" && loginType == "refugee") {
-            console.log("navegando para mapscreen...");
+    // Fetch the token from storage then navigate to our appropriate place
+    const _bootstrapAsync = async () => {
+        const userToken = await AsyncStorage.getItem("logged");
+        console.log("userToken at AuthLoading: ", userToken);
+        // This will switch to the App screen or Auth screen and this loading
+        // screen will be unmounted and thrown away.
+        props.navigation.navigate(userToken ? "LoggedFlow" : "AuthFlow");
+    };
 
-            navigation.navigate("MapScreen");
-        }
-    });
-
+    // Render any loading content that you like here
     return (
         <View style={styles.container}>
-            <View>
-                <ActivityIndicator />
-            </View>
+            <ActivityIndicator />
+            <StatusBar barStyle="default" />
         </View>
     );
 };
+export default AuthLoadingScreen;
